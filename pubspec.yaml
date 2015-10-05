@@ -1,0 +1,7 @@
+name: resource
+version: 0.1.0
+dependencies:
+  http: "any"
+  typed_data: "any"
+dev_dependencies:
+  test: "any"
