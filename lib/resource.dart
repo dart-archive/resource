@@ -4,9 +4,8 @@
 
 /// A [Resource] is data that can be loaded into a Dart program.
 ///
-/// This library provides an implementation of [Resource] and a
-/// [PackageResolver] that controls how package: URIs are converted to
-/// URIs that can be loaded.
+/// A resource is identified by a URI.
 library resource;
 
-export "src/resource.dart" show Resource, PackageResolver;
+export "src/resource.dart" show Resource;
+export "src/loader.dart" show ResourceLoader;
