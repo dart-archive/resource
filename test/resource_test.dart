@@ -5,8 +5,6 @@
 import "dart:async" show Future, Stream;
 import "dart:isolate" show Isolate;
 import "dart:convert" show Encoding, ASCII;
-import "package:package_config/packages.dart";
-import "package:package_config/discovery.dart";
 import "package:resource/resource.dart";
 import "package:test/test.dart";
 
