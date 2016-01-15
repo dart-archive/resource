@@ -36,7 +36,9 @@ Future<List<int>> readAsBytes(Uri uri) async {
   }
   if (uri.scheme == "http" || uri.scheme == "https") {
     HttpClientResponse response = await _httpGet(uri);
-    Uint8Buffer buffer = new Uint8Buffer();
+    int length = response.contentLength;
+    if (length < 0) length = 0;
+    var buffer = new Uint8Buffer(length);
     await for (var bytes in response) {
       buffer.addAll(bytes);
     }
@@ -68,7 +70,7 @@ Future<String> readAsString(Uri uri, Encoding encoding) async {
       // Special case LATIN-1 since it is common and doesn't need decoding.
       int length = response.contentLength;
       if (length < 0) length = 0;
-      Uint8Buffer buffer = new Uint8Buffer(length);
+      var buffer = new Uint8Buffer(length);
       await for (var bytes in response) {
         buffer.addAll(bytes);
       }
