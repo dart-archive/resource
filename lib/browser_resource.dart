@@ -21,10 +21,11 @@
 ///                             .first;
 ///
 ///
-/// Notice: Currently this library requires `dart:io` to do the reading,
-/// so it doesn't work in the browser. Use `browser_resource.dart` in the
-/// browser.
+/// Notice: Currently this library requires `dart:Html` to do the reading,
+/// so it doesn't work outside of a browser.
+/// This library will eventually be mergeded into the `resource.dart` when
+/// features are available to make that possible.
 library resource;
 
-export "src/io/resource.dart" show Resource;
-export "src/io/loader.dart" show ResourceLoader;
+export "src/browser/resource.dart" show Resource;
+export "src/browser/loader.dart" show ResourceLoader;

@@ -2,6 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+@TestOn("vm");
+
 import "dart:async";
 import "dart:convert";
 import "dart:io";
@@ -11,11 +13,11 @@ import "package:test/test.dart";
 
 const content = "Rødgrød med fløde";
 
-
 main() {
   var dir;
+  int dirCounter = 0;
   setUp(() {
-    dir = Directory.systemTemp.createTempSync('testdir');
+    dir = Directory.systemTemp.createTempSync('testdir${dirCounter++}');
   });
   testFile(Encoding encoding) {
     group("${encoding.name}", () {
@@ -25,10 +27,7 @@ main() {
         var dirUri = dir.uri;
         uri = dirUri.resolve("file.txt");
         file = new File.fromUri(uri);
-        file.createSync();
-        var sink = file.openWrite(encoding: encoding);
-        sink.write(content);
-        sink.close();
+        file.writeAsBytesSync(encoding.encode(content));
       });
 
       test("read string", () async {
