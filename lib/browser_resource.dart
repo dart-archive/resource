@@ -25,7 +25,7 @@
 /// so it doesn't work outside of a browser.
 /// This library will eventually be mergeded into the `resource.dart` when
 /// features are available to make that possible.
-library resource;
+library browser_resource;
 
 export "src/browser/resource.dart" show Resource;
 export "src/browser/loader.dart" show ResourceLoader;
