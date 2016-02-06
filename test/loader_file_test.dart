@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-@TestOn("vm");
+@TestOn("vm")
 
-import "dart:async";
 import "dart:convert";
 import "dart:io";
 
@@ -44,7 +43,7 @@ main() {
 
       test("read byte stream", () async {
         var loader = ResourceLoader.defaultLoader;
-        Stream<int> bytes = loader.openRead(uri);
+        var bytes = loader.openRead(uri);
         var buffer = [];
         await bytes.forEach(buffer.addAll);
         expect(buffer, encoding.encode(content));

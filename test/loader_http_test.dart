@@ -2,9 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-@TestOn("vm");
+@TestOn("vm")
 
-import "dart:async";
 import "dart:convert";
 import "dart:io";
 
@@ -21,7 +20,6 @@ main() {
     int port = server.port;
     uri = Uri.parse("http://localhost:$port/default.html");
     server.forEach((HttpRequest request) {
-      var accept = request.headers[HttpHeaders.ACCEPT];
       var encodings = request.headers[HttpHeaders.ACCEPT_CHARSET];
       var encoding = parseAcceptCharset(encodings);
       request.response.headers.contentType =
@@ -57,7 +55,7 @@ main() {
 
   test("byte stream", () async {
     var loader = ResourceLoader.defaultLoader;
-    Stream<int> bytes = loader.openRead(uri);  // Sender uses Latin-1.
+    var bytes = loader.openRead(uri);  // Sender uses Latin-1.
     var buffer = [];
     await bytes.forEach(buffer.addAll);
     expect(buffer, content.codeUnits);
