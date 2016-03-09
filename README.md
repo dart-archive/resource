@@ -8,7 +8,7 @@ The resource URI may be a package: URI.
 
 Example:
 
-```
+```dart
 import 'package:resource/resource.dart' show Resource;
 import 'dart:convert' show UTF8;
 
