@@ -4,6 +4,11 @@
 
 import "dart:async" show Future, Stream;
 import "dart:convert" show Encoding;
+import "package_loader.dart";
+import "io_none.dart"
+    if (dart.library.io) "io_io.dart"
+    if (dart.library.html) "io_html.dart"
+    as io;
 
 /// Resource loading strategy.
 ///
@@ -11,6 +16,23 @@ import "dart:convert" show Encoding;
 ///
 /// Implementations of this interface decide which URI schemes they support.
 abstract class ResourceLoader {
+  /// A resource loader that can load as many of the following URI
+  /// schemes as are supported by the platform:
+  /// * file
+  /// * http
+  /// * https
+  /// * data
+  /// * package
+  ///
+  /// For example, `file:` URIs are not supported in the browser.
+  /// Relative URI references are accepted - they are resolved against
+  /// [Uri.base] before being loaded.
+  ///
+  /// This loader is automatically used by the [Resource] class
+  /// if no other loader is specified.
+  static ResourceLoader get defaultLoader =>
+      const PackageLoader(const DefaultLoader());
+
   /// Reads the file located by [uri] as a stream of bytes.
   Stream<List<int>> openRead(Uri uri);
 
@@ -27,5 +49,23 @@ abstract class ResourceLoader {
   /// otherwise it defaults to Latin-1 for `http` and `https`
   /// and to ASCII for `data` URIs.
   Future<String> readAsString(Uri uri, {Encoding encoding});
+}
+
+/// Default implementation of [ResourceLoader].
+///
+/// Uses the system's available loading functionality to implement the
+/// loading functions.
+///
+/// Supports as many of `http:`, `https:`, `file:` and `data:` URIs as
+/// possible.
+class DefaultLoader implements ResourceLoader {
+  const DefaultLoader();
+
+  Stream<List<int>> openRead(Uri uri) => io.readAsStream(uri);
+
+  Future<List<int>> readAsBytes(Uri uri) => io.readAsBytes(uri);
+
+  Future<String> readAsString(Uri uri, {Encoding encoding}) =>
+      io.readAsString(uri, encoding);
 }
 

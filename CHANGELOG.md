@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0
+- Use configuration dependent imports to avoid having separate implementations
+  for `dart:io` and `dart:html`.
+- Remove `browser_resource.dart`.
+
 ## 1.1.0
 
 - Added browser-compatible version as `browser_resource.dart` library.

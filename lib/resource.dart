@@ -19,12 +19,7 @@
 ///     var obj = await resource.openRead()   // Reads as stream of bytes.
 ///                             .transform(UTF8.fuse(JSON).decoder)
 ///                             .first;
-///
-///
-/// Notice: Currently this library requires `dart:io` to do the reading,
-/// so it doesn't work in the browser. Use `browser_resource.dart` in the
-/// browser.
 library resource;
 
-export "src/io/resource.dart" show Resource;
-export "src/io/loader.dart" show ResourceLoader;
+export "src/resource.dart" show Resource;
+export "src/resource_loader.dart" show ResourceLoader;

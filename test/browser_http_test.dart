@@ -7,7 +7,7 @@
 import "dart:async";
 import "dart:convert";
 
-import "package:resource/browser_resource.dart";
+import "package:resource/resource.dart";
 import "package:test/test.dart";
 
 const content = "Rødgrød med fløde";

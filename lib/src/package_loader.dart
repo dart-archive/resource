@@ -14,7 +14,7 @@ import "resolve.dart";
 /// package URIs and relative URI references before loading them.
 ///
 /// This class may be useful when you don't want to bother creating a resource
-/// object, and just want to load a resource directly.
+/// object, and just want to load a package resource directly.
 class PackageLoader implements ResourceLoader {
   final ResourceLoader _loader;
   const PackageLoader(ResourceLoader loader) : _loader = loader;
