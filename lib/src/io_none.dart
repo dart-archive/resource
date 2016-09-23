@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import "dart:async" show Future, Stream;
+import "dart:convert" show Encoding;
 
 /// Read the bytes of a URI as a stream of bytes.
 Stream<List<int>> readAsStream(Uri uri) async* {
