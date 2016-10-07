@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.2
+- Update README.md.
+
+## 2.0.1
+- Fix type warnings.
+
 ## 2.0.0
 - Use configuration dependent imports to avoid having separate implementations
   for `dart:io` and `dart:html`.
