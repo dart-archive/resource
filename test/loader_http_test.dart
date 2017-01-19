@@ -20,6 +20,12 @@ main() {
     int port = server.port;
     uri = Uri.parse("http://localhost:$port/default.html");
     server.forEach((HttpRequest request) {
+      if (request.uri.path.endsWith(".not")) {
+        request.response
+          ..statusCode = HttpStatus.NOT_FOUND
+          ..close();
+        return;
+      }
       var encodings = request.headers[HttpHeaders.ACCEPT_CHARSET];
       var encoding = parseAcceptCharset(encodings);
       request.response.headers.contentType =
@@ -59,6 +65,24 @@ main() {
     var buffer = [];
     await bytes.forEach(buffer.addAll);
     expect(buffer, content.codeUnits);
+  });
+
+  test("not found - String", () async {
+    var loader = ResourceLoader.defaultLoader;
+    var badUri = uri.resolve("file.not");  // .not makes server fail.
+    expect(loader.readAsString(badUri), throws);
+  });
+
+  test("not found - bytes", () async {
+    var loader = ResourceLoader.defaultLoader;
+    var badUri = uri.resolve("file.not");  // .not makes server fail.
+    expect(loader.readAsBytes(badUri), throws);
+  });
+
+  test("not found - byte stream", () async {
+    var loader = ResourceLoader.defaultLoader;
+    var badUri = uri.resolve("file.not");  // .not makes server fail.
+    expect(loader.openRead(badUri).length, throws);
   });
 
   tearDown(() {

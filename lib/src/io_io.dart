@@ -4,8 +4,12 @@
 
 import "dart:async" show Future, Stream;
 import "dart:convert" show Encoding, LATIN1, UTF8;
-import "dart:io" show
-    File, HttpClient, HttpClientResponse, HttpClientRequest, HttpHeaders;
+import "dart:io" show File,
+                      HttpStatus,
+                      HttpClient,
+                      HttpClientResponse,
+                      HttpClientRequest,
+                      HttpHeaders;
 
 import "package:typed_data/typed_buffers.dart" show Uint8Buffer;
 
@@ -17,6 +21,7 @@ Stream<List<int>> readAsStream(Uri uri) async* {
   }
   if (uri.scheme == "http" || uri.scheme == "https") {
     HttpClientResponse response = await _httpGetBytes(uri);
+    _throwIfFailed(response, uri);
     yield* response;
     return;
   }
@@ -34,6 +39,7 @@ Future<List<int>> readAsBytes(Uri uri) async {
   }
   if (uri.scheme == "http" || uri.scheme == "https") {
     HttpClientResponse response = await _httpGetBytes(uri);
+    _throwIfFailed(response, uri);
     int length = response.contentLength;
     if (length < 0) length = 0;
     var buffer = new Uint8Buffer(length);
@@ -62,6 +68,7 @@ Future<String> readAsString(Uri uri, Encoding encoding) async {
       request.headers.set(HttpHeaders.ACCEPT_CHARSET, encoding.name);
     }
     HttpClientResponse response = await request.close();
+    _throwIfFailed(response, uri);
     encoding ??= Encoding.getByName(response.headers.contentType?.charset);
     if (encoding == null || encoding == LATIN1) {
       // Default to LATIN-1 if no encoding found.
@@ -87,4 +94,11 @@ Future<HttpClientResponse> _httpGetBytes(Uri uri) async {
   HttpClientRequest request = await new HttpClient().getUrl(uri);
     request.headers.set(HttpHeaders.ACCEPT, "application/octet-stream, */*");
   return request.close();
+}
+
+void _throwIfFailed(HttpClientResponse response, Uri uri) {
+  var statusCode = response.statusCode;
+  if (statusCode < HttpStatus.OK || statusCode > HttpStatus.NO_CONTENT) {
+    throw new HttpException(response.reasonPhrase, uri: uri);
+  }
 }

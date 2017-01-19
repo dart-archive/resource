@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0
+- Make failing HTTP requests throw an `HttpException`.
+
 ## 2.0.2
 - Update README.md.
 
