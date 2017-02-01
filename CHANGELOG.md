@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.1
+- Reduce max concurrent connections to the same host to 6 when using `dart:io`.
+  That's the same limit that many browsers use.
+- Trying to load a resource from a non-existing package now gives a better
+  error message.
+
 ## 2.1.0
 - Make failing HTTP requests throw an `HttpException`.
 

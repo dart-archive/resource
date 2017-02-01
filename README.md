@@ -14,7 +14,7 @@ import 'dart:convert' show UTF8;
 
 main() async {
   var resource = new Resource("package:foo/foo_data.txt");
-  var string = await resource.readAsString(UTF8);
+  var string = await resource.readAsString(encoding: UTF8);
   print(string);
 }
 ```

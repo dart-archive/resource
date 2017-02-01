@@ -9,6 +9,7 @@ import "dart:io" show File,
                       HttpClient,
                       HttpClientResponse,
                       HttpClientRequest,
+                      HttpException,
                       HttpHeaders;
 
 import "package:typed_data/typed_buffers.dart" show Uint8Buffer;
@@ -90,9 +91,11 @@ Future<String> readAsString(Uri uri, Encoding encoding) async {
   throw new UnsupportedError("Unsupported scheme: $uri");
 }
 
+HttpClient _sharedHttpClient = new HttpClient()..maxConnectionsPerHost = 6;
+
 Future<HttpClientResponse> _httpGetBytes(Uri uri) async {
-  HttpClientRequest request = await new HttpClient().getUrl(uri);
-    request.headers.set(HttpHeaders.ACCEPT, "application/octet-stream, */*");
+  HttpClientRequest request = await _sharedHttpClient.getUrl(uri);
+  request.headers.set(HttpHeaders.ACCEPT, "application/octet-stream, */*");
   return request.close();
 }
 

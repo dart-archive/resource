@@ -39,8 +39,8 @@ main() {
     }
 
     test("load package: URIs", () async {
-      await testLoad(pkguri("foo/bar/baz"));
-      await testLoad(pkguri("bar/foo/baz"));
+      await testLoad(pkguri("resource/bar/baz"));
+      await testLoad(pkguri("test/foo/baz"));
     });
     test("load non-pkgUri", () async {
       await testLoad(Uri.parse("file://localhost/something?x#y"));
