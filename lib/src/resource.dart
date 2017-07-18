@@ -5,8 +5,8 @@
 import "dart:async" show Future, Stream;
 import "dart:convert" show Encoding;
 
-import "resource_loader.dart";
 import "resolve.dart";
+import "resource_loader.dart";
 
 /// Base resource implementation.
 class Resource {
@@ -43,7 +43,8 @@ class Resource {
   /// as many of `http`, `https`, `file` and `data` as are available on the
   /// current platform.
   const Resource(uri, {ResourceLoader loader})
-      : _uri = uri, _loader = loader ?? const DefaultLoader();
+      : _uri = uri,
+        _loader = loader ?? const DefaultLoader();
 
   /// The location URI of this resource.
   ///
