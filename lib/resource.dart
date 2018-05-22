@@ -10,14 +10,14 @@
 /// Example:
 ///
 ///     var resource = new Resource("package:foo/foo_data.txt");
-///     var string = await resource.readAsString(UTF8);
+///     var string = await resource.readAsString(utf8);
 ///     print(string);
 ///
 /// Example:
 ///
 ///     var resource = new Resource("http://example.com/data.json");
 ///     var obj = await resource.openRead()   // Reads as stream of bytes.
-///                             .transform(UTF8.fuse(JSON).decoder)
+///                             .transform(utf8.fuse(JSON).decoder)
 ///                             .first;
 library resource;
 
