@@ -51,8 +51,7 @@ Future<String> readAsString(Uri uri, Encoding encoding) async {
 }
 
 Future<List<int>> _httpGetBytes(Uri uri) {
-  return HttpRequest
-      .request(uri.toString(), responseType: "arraybuffer")
+  return HttpRequest.request(uri.toString(), responseType: "arraybuffer")
       .then((request) {
     ByteBuffer data = request.response;
     return data.asUint8List();
