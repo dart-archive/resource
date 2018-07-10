@@ -99,7 +99,8 @@ HttpClient _sharedHttpClient = new HttpClient()..maxConnectionsPerHost = 6;
 
 Future<HttpClientResponse> _httpGetBytes(Uri uri) async {
   HttpClientRequest request = await _sharedHttpClient.getUrl(uri);
-  request.headers.set(HttpHeaders.acceptHeader, "application/octet-stream, */*");
+  request.headers
+      .set(HttpHeaders.acceptHeader, "application/octet-stream, */*");
   return request.close();
 }
 
