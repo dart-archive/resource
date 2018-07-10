@@ -1,3 +1,7 @@
+## 2.1.5
+
+- Require at least Dart 2.0.0-dev.61.
+
 ## 2.1.4
 - Require at least Dart 2.0.0.
 

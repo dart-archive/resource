@@ -67,9 +67,9 @@ Future<String> readAsString(Uri uri, Encoding encoding) async {
   if (uri.scheme == "http" || uri.scheme == "https") {
     HttpClientRequest request = await new HttpClient().getUrl(uri);
     // Prefer text/plain, text/* if possible, otherwise take whatever is there.
-    request.headers.set(HttpHeaders.ACCEPT, "text/plain, text/*, */*");
+    request.headers.set(HttpHeaders.acceptHeader, "text/plain, text/*, */*");
     if (encoding != null) {
-      request.headers.set(HttpHeaders.ACCEPT_CHARSET, encoding.name);
+      request.headers.set(HttpHeaders.acceptCharsetHeader, encoding.name);
     }
     HttpClientResponse response = await request.close();
     _throwIfFailed(response, uri);
@@ -99,13 +99,13 @@ HttpClient _sharedHttpClient = new HttpClient()..maxConnectionsPerHost = 6;
 
 Future<HttpClientResponse> _httpGetBytes(Uri uri) async {
   HttpClientRequest request = await _sharedHttpClient.getUrl(uri);
-  request.headers.set(HttpHeaders.ACCEPT, "application/octet-stream, */*");
+  request.headers.set(HttpHeaders.acceptHeader, "application/octet-stream, */*");
   return request.close();
 }
 
 void _throwIfFailed(HttpClientResponse response, Uri uri) {
   var statusCode = response.statusCode;
-  if (statusCode < HttpStatus.OK || statusCode > HttpStatus.NO_CONTENT) {
+  if (statusCode < HttpStatus.ok || statusCode > HttpStatus.noContent) {
     throw new HttpException(response.reasonPhrase, uri: uri);
   }
 }

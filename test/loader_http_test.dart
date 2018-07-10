@@ -23,11 +23,11 @@ main() {
     server.forEach((HttpRequest request) {
       if (request.uri.path.endsWith(".not")) {
         request.response
-          ..statusCode = HttpStatus.NOT_FOUND
+          ..statusCode = HttpStatus.notFound
           ..close();
         return;
       }
-      var encodings = request.headers[HttpHeaders.ACCEPT_CHARSET];
+      var encodings = request.headers[HttpHeaders.acceptCharsetHeader];
       var encoding = parseAcceptCharset(encodings);
       request.response.headers.contentType =
           new ContentType("text", "plain", charset: encoding.name);
