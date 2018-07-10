@@ -38,7 +38,10 @@ main() {
       request.response
         ..write(content)
         ..close();
-    }).catchError(print);
+    }).catchError((e, stack) {
+      print(e);
+      print(stack);
+    });
   });
 
   test("Default encoding", () async {
@@ -120,7 +123,7 @@ main() {
 }
 
 Encoding parseAcceptCharset(List<String> headers) {
-  var encoding = latin1;
+  Encoding encoding = latin1;
   if (headers != null) {
     var weight = 0.0;
     var pattern = new RegExp(r"([\w-]+)(;\s*q=[\d.]+)?");
