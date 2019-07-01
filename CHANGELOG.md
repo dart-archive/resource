@@ -1,3 +1,9 @@
+## 2.1.5+1
+
+- Cast stream to List<int> in 'readAsString', this is in preparation for
+  HttpClientResponse implementing Stream<Uint8List> (forward compatible
+  change, should be a no-op for existing usages)
+
 ## 2.1.5
 
 - Require at least Dart 2.0.0-dev.61.
